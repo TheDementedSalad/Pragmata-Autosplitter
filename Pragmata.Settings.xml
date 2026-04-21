@@ -1,0 +1,22 @@
+<Settings>
+    <Setting Id="Main"  Label="Main Game" State="false">
+		<Setting Id="Int"  Label="Intro" State="false">
+			<Setting Id="cs_0030" Label="Wake Up After Moonquake" State="false"/>
+			<Setting Id="cs_0050" Label="Enter Tram" State="false"/>
+		</Setting>
+		<Setting Id="Sol"  Label="Solar Power Plant" State="false">
+			<Setting Id="1065337910_1_2" Label="Turn on Generators" State="false"/>
+			<Setting Id="3702464428_1_2" Label="Hack First Power Terminal" State="false"/>
+			<Setting Id="3866905711_1_2" Label="Hack Second Power Terminal" State="false"/>
+			<Setting Id="90860368_1_2" Label="Hack Third Power Terminal" State="false"/>
+			<Setting Id="3757168098_1_2" Label="Hack Fourth Power Terminal" State="false"/>
+			<Setting Id="700904805_1_2" Label="Hack Fifth Power Terminal" State="false"/>
+			<Setting Id="2698397970_1_2" Label="Enter Five Lock Door" State="false"/>
+			<Setting Id="cs_0240" Label="First Earth Memory" State="false"/>
+			<Setting Id="cs_0250" Label="First Boss Start" State="false"/>
+			<Setting Id="cs_0260" Label="2nd Phase Start" State="false"/>
+			<Setting Id="cs_0270" Label="Defeat First Boss" State="false"/>
+		</Setting>
+	</Setting>
+</Settings>
+
