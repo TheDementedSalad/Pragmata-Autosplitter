@@ -81,6 +81,7 @@ init
 	
 	vars.QuestList = new List<uint>();
 	vars.MiniDemos = new List<string>();
+	vars.completedQuests = new List<uint>();
 	vars.completedSplits = new HashSet<string>();
 	vars.Objective = new Dictionary<uint, byte>();
 	
@@ -94,6 +95,7 @@ onStart
 {
 	vars.QuestList.Clear();
 	vars.MiniDemos.Clear();
+	vars.completedQuests.Clear();
 	vars.completedSplits.Clear();
 	vars.Objective.Clear();
 	vars.PendingSplits = 0;
@@ -151,8 +153,9 @@ split
 		if (vars.Objective.TryGetValue(mission, out oldComplete))
 		{
 			
-			if (complete == 2 && oldComplete != 2){
+			if (complete == 2 && oldComplete != 2 && !vars.completedQuests.Contains(mission)){
 				MCompSetting = mission + "_" + chapter + "_" + complete;
+				vars.completedQuests.Add(mission);
 			}
 				
 			if(!vars.completedSplits.Contains(MCompSetting)){
