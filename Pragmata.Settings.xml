@@ -11,12 +11,23 @@
 			<Setting Id="90860368_1_2" Label="Hack Third Power Terminal" State="false"/>
 			<Setting Id="3757168098_1_2" Label="Hack Fourth Power Terminal" State="false"/>
 			<Setting Id="700904805_1_2" Label="Hack Fifth Power Terminal" State="false"/>
-			<Setting Id="2698397970_1_2" Label="Enter Five Lock Door" State="false"/>
+			<Setting Id="1539364293_New" Label="Enter Five Lock Door" State="false"/>
 			<Setting Id="cs_0240" Label="First Earth Memory" State="false"/>
 			<Setting Id="cs_0250" Label="First Boss Start" State="false"/>
 			<Setting Id="cs_0260" Label="2nd Phase Start" State="false"/>
 			<Setting Id="cs_0270" Label="Defeat First Boss" State="false"/>
 		</Setting>
+		<Setting Id="Mas"  Label="Mass Production Array" State="false">
+			<Setting Id="1600715518_New" Label="Reach the City" State="false"/>
+			<Setting Id="3834797531_2_2" Label="Hack First Beacon" State="false"/>
+			<Setting Id="2902961450_2_2" Label="Hack Second Beacon" State="false"/>
+			<Setting Id="979149566_2_2" Label="Hack Third Beacon" State="false"/>
+			<Setting Id="3056204639_2_2" Label="Hack Fourth Beacon" State="false"/>
+			<Setting Id="1395449153_2_2" Label="Hack Fifth Beacon" State="false"/>
+			<Setting Id="cs_0450" Label="Get Upgrade" State="false"/>
+			<Setting Id="2193165103_2_2" Label="Hack Final Beacon" State="false"/>
+			<Setting Id="cs_0460" Label="Second Boss Start" State="false"/>
+			<Setting Id="cs_0480" Label="Defeat Second Boss" State="false"/>
+		</Setting>
 	</Setting>
 </Settings>
-
