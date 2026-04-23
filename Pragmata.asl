@@ -28,6 +28,8 @@ startup
             timer.CurrentTimingMethod = TimingMethod.GameTime;
         }
     }
+	
+	vars.bitCheck = new Func<int, int, bool>((int val, int b) => (val & (1 << b)) != 0);
 }
 
 init
@@ -40,6 +42,7 @@ init
 	IntPtr ObjectiveManager = vars.Uhara.ScanRel(3, "48 8b 15 ?? ?? ?? ?? 48 89 f1 48 85 d2 74 ?? e8 ?? ?? ?? ?? 34");
 	IntPtr SkipEventManager = vars.Uhara.ScanRel(3, "48 8b 05 ?? ?? ?? ?? 48 85 c0 74 ?? 8b 48 ?? 48 83 c0");
 	IntPtr MiniDemoManager = vars.Uhara.ScanRel(3, "48 8b 15 ?? ?? ?? ?? 8b 83");
+	IntPtr PauseManager = vars.Uhara.ScanRel(3, "48 8b 3d ?? ?? ?? ?? 48 8b 02 48 8b 80");
 	
 	vars.Helper["GameElapsedTime"] = vars.Helper.Make<long>(GameClock, 0x18);
 	vars.Helper["DemoSpendingTime"] = vars.Helper.Make<long>(GameClock, 0x20);
@@ -74,10 +77,15 @@ init
 	vars.Helper["ISkipEventSetup"] = vars.Helper.Make<bool>(SkipEventManager, 0x134);
 	vars.Helper["ISkipEventSetup"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 	vars.Helper["SkippableEventCount"] = vars.Helper.Make<byte>(SkipEventManager, 0x38);
+	vars.Helper["SkipModuleStep"] = vars.Helper.Make<byte>(SkipEventManager, 0x20, 0x10, 0x28);
+	vars.Helper["SkipModuleStep"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 	
 	vars.Helper["MiniDemoID"] = vars.Helper.MakeString(MiniDemoManager, 0x10, 0x10, 0x20, 0x10, 0x28, 0x14);
 	vars.Helper["MiniDemoID"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 	vars.Helper["MiniDemoSize"] = vars.Helper.Make<byte>(MiniDemoManager, 0x10, 0x10, -8);
+	
+	vars.Helper["CurrentPauseTypes"] = vars.Helper.Make<int>(PauseManager, 0x68); //Bits
+	//6 CutscenePause, 9 Cutscene, 7 AutoPause?
 	
 	vars.QuestList = new List<uint>();
 	vars.MiniDemos = new List<string>();
@@ -99,10 +107,12 @@ onStart
 	vars.completedSplits.Clear();
 	vars.Objective.Clear();
 	vars.PendingSplits = 0;
+	timer.IsGameTimePaused = true;
 }
 
 start
 {
+	return current.DemoID == "cs0110" && old.DemoID != "cs0110";
 }
 
 
@@ -271,8 +281,9 @@ split
 
 isLoading
 {
-	return current.MeasureDemoSpendingTimeBits != 0 || current.MeasurePauseSpendingTimeBits != 0 || current.EventFade == 1 || current.EventFade == 2 || 
-		current.MenuFade == 1 || current.MenuFade == 2 || current.PlayingEvent || current.TramPhase;
+	return vars.bitCheck(current.MeasureDemoSpendingTimeBits, 0) || vars.bitCheck(current.MeasurePauseSpendingTimeBits, 0) || vars.bitCheck(current.MeasurePauseSpendingTimeBits, 5) 
+			|| vars.bitCheck(current.MeasurePauseSpendingTimeBits, 7) || current.EventFade == 1 || current.EventFade == 2 || current.EventFade == 3 || current.MenuFade == 1 
+			|| current.MenuFade == 2 || current.PlayingEvent || current.SkipModuleStep == 2;
 }
 
 reset
